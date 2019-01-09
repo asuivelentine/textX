@@ -134,6 +134,7 @@ def convert(value, _type):
     return {
             'BOOL': lambda x: x == '1' or x.lower() == 'true',
             'INT': lambda x: int(x),
+            'UINT': lambda x: int(x),
             'FLOAT': lambda x: float(x),
             'STRICTFLOAT': lambda x: float(x),
             'STRING': lambda x: x[1:-1].replace(r'\"',

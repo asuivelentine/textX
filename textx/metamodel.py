@@ -14,7 +14,7 @@ from collections import OrderedDict
 from arpeggio import DebugPrinter
 from textx.six import add_metaclass
 from textx.lang import language_from_str, python_type, BASE_TYPE_NAMES, ID, \
-    BOOL, INT, FLOAT, STRICTFLOAT, STRING, NUMBER, BASETYPE, OBJECT
+    BOOL, INT, UINT, FLOAT, STRICTFLOAT, STRING, NUMBER, BASETYPE, OBJECT
 from textx.const import MULT_ONE, MULT_ZEROORMORE, MULT_ONEORMORE, \
     RULE_MATCH, RULE_ABSTRACT
 from textx.exceptions import TextXError
@@ -172,12 +172,13 @@ class TextXMetaModel(DebugPrinter):
         base_string = self._new_class('STRING', STRING, 0)
         base_bool = self._new_class('BOOL', BOOL, 0)
         base_int = self._new_class('INT', INT, 0)
+        base_uint = self._new_class('UINT', INT, 0)
         base_float = self._new_class('FLOAT', FLOAT, 0)
         base_strictfloat = self._new_class('STRICTFLOAT', STRICTFLOAT, 0)
         base_number = self._new_class('NUMBER', NUMBER, 0,
                                       inherits=[base_strictfloat, base_int])
         base_type = self._new_class('BASETYPE', BASETYPE, 0,
-                                    inherits=[base_number, base_float,
+                                    inherits=[base_number, base_uint, base_float,
                                               base_bool, base_id,
                                               base_string])
         self._new_class('OBJECT', OBJECT, 0, inherits=[base_type],

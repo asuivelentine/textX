@@ -89,6 +89,7 @@ def comment_block():        return _(r'/\*(.|\n)*?\*/')
 ID          = _(r'[^\d\W]\w*\b', rule_name='ID', root=True)
 BOOL        = _(r'(True|true|False|false|0|1)\b', rule_name='BOOL', root=True)
 INT         = _(r'[-+]?[0-9]+\b', rule_name='INT', root=True)
+UINT         = _(r'[+]?[0-9]+\b', rule_name='UINT', root=True)
 FLOAT       = _(r'[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?(?<=[\w\.])(?![\w\.])',
                 'FLOAT', root=True)
 STRICTFLOAT = _(r'[+-]?(((\d+\.(\d*)?|\.\d+)([eE][+-]?\d+)?)|((\d+)([eE][+-]?\d+)))(?<=[\w\.])(?![\w\.])',
@@ -102,14 +103,14 @@ BASETYPE    = OrderedChoice(nodes=[NUMBER, FLOAT, BOOL, ID, STRING],
 OBJECT = _(r'', rule_name='OBJECT', root=True)
 
 BASE_TYPE_RULES = {rule.rule_name: rule
-                   for rule in [ID, BOOL, INT, FLOAT, STRICTFLOAT,
+                   for rule in [ID, BOOL, INT, UINT, FLOAT, STRICTFLOAT,
                                 STRING, NUMBER, BASETYPE]}
 BASE_TYPE_NAMES = list(BASE_TYPE_RULES.keys())
 ALL_TYPE_NAMES = BASE_TYPE_NAMES + ['OBJECT']
 
 PRIMITIVE_PYTHON_TYPES = [int, float, text, bool]
 
-for regex in [ID, BOOL, INT, FLOAT, STRICTFLOAT, STRING]:
+for regex in [ID, BOOL, INT, UINT, FLOAT, STRICTFLOAT, STRING]:
     regex.compile()
 
 
@@ -119,6 +120,7 @@ def python_type(textx_type_name):
         'ID': text,
         'BOOL': bool,
         'INT': int,
+        'UINT': int,
         'FLOAT': float,
         'STRICTFLOAT': float,
         'STRING': text,
